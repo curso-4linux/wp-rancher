@@ -1,5 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
+  annotations:
+    app.kubernetes.io/managed-by: Helm
+    meta.helm.sh/release-name: wp-rancher
+    meta.helm.sh/release-namespace: devops
 metadata:
   name: wordpress-banco
   namespace: devops
