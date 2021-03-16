@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: devops
+  name: wordpress-banco
+spec:
+  selector:
+    matchLabels:
+      app: banco
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: banco
+        tier: backend
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mysql_password
+              name: mysql-secrets
+      - name: wordpress-banco
+        image: mysql:5.6
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        ports:
+        - containerPort: 3306
+                volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: storage-mysql      
+      volumes:
+      - name: storage-mysql
+        persistentVolumeClaim:
+          claimName: storage-mysql
