@@ -1,157 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-    field.cattle.io/publicEndpoints: '[{"addresses":["35.222.8.133"],"port":80,"protocol":"TCP","serviceName":"devops:wordpress-site-loadbalancer","allNodes":false}]'
-  creationTimestamp: "2021-03-15T23:46:37Z"
-  generation: 2
-  managedFields:
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:progressDeadlineSeconds: {}
-        f:replicas: {}
-        f:revisionHistoryLimit: {}
-        f:selector:
-          f:matchLabels:
-            .: {}
-            f:workload.user.cattle.io/workloadselector: {}
-        f:strategy:
-          f:rollingUpdate:
-            .: {}
-            f:maxSurge: {}
-            f:maxUnavailable: {}
-          f:type: {}
-        f:template:
-          f:metadata:
-            f:labels:
-              .: {}
-              f:workload.user.cattle.io/workloadselector: {}
-          f:spec:
-            f:affinity: {}
-            f:containers:
-              k:{"name":"wordpress-site"}:
-                .: {}
-                f:env:
-                  .: {}
-                  k:{"name":"WORDPRESS_DB_HOST"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"WORDPRESS_DB_PASSWORD"}:
-                    .: {}
-                    f:name: {}
-                    f:valueFrom:
-                      .: {}
-                      f:secretKeyRef:
-                        .: {}
-                        f:key: {}
-                        f:name: {}
-                        f:optional: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:ports:
-                  .: {}
-                  k:{"containerPort":80,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                f:resources: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/var/www/html"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-            f:dnsPolicy: {}
-            f:restartPolicy: {}
-            f:schedulerName: {}
-            f:securityContext: {}
-            f:terminationGracePeriodSeconds: {}
-            f:volumes:
-              .: {}
-              k:{"name":"storage-wp"}:
-                .: {}
-                f:name: {}
-                f:persistentVolumeClaim:
-                  .: {}
-                  f:claimName: {}
-    manager: agent
-    operation: Update
-    time: "2021-03-15T23:46:37Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:deployment.kubernetes.io/revision: {}
-      f:status:
-        f:availableReplicas: {}
-        f:conditions:
-          .: {}
-          k:{"type":"Available"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-          k:{"type":"Progressing"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-        f:observedGeneration: {}
-        f:readyReplicas: {}
-        f:replicas: {}
-        f:updatedReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2021-03-15T23:47:08Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          f:field.cattle.io/publicEndpoints: {}
-    manager: rancher
-    operation: Update
-    time: "2021-03-15T23:47:08Z"
   name: wordpress-site
-  namespace: devops
-  resourceVersion: "16869"
-  selfLink: /apis/apps/v1/namespaces/devops/deployments/wordpress-site
-  uid: 5402cdc2-9acc-49b3-984d-e77f3b69b6b9
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
     spec:
-      affinity: {}
       containers:
       - env:
         - name: WORDPRESS_DB_HOST
@@ -161,45 +21,17 @@ spec:
             secretKeyRef:
               key: mysql_password
               name: mysql-secrets
-              optional: false
         image: wordpress:4.8-apache
         imagePullPolicy: Always
         name: wordpress-site
         ports:
         - containerPort: 80
           name: wordpress-lb
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+          protocol: TCP  
         volumeMounts:
         - mountPath: /var/www/html
           name: storage-wp
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
       volumes:
       - name: storage-wp
         persistentVolumeClaim:
           claimName: storage-wp
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2021-03-15T23:47:08Z"
-    lastUpdateTime: "2021-03-15T23:47:08Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2021-03-15T23:46:37Z"
-    lastUpdateTime: "2021-03-15T23:47:08Z"
-    message: ReplicaSet "wordpress-site-b8bc6d749" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 2
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
