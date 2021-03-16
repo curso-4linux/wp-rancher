@@ -11,8 +11,6 @@ spec:
     matchLabels:
       app: wordpress
       tier: backend
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -32,9 +30,9 @@ spec:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: storage-mysql
+        - name: storage-banco
           mountPath: /var/lib/mysql
       volumes:
-      - name: storage-mysql
+      - name: storage-banco
         persistentVolumeClaim:
-          claimName: storage-mysql
+          claimName: storage-banco
