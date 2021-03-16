@@ -13,6 +13,7 @@ spec:
         workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-banco
     spec:
       containers:
+      - name: wordpress-banco
       - env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
