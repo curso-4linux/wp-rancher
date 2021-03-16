@@ -1,27 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
-  annotations:
-    app.kubernetes.io/managed-by: Helm
-    meta.helm.sh/release-name: wp-rancher
-    meta.helm.sh/release-namespace: devops
 metadata:
   name: nginx
-  namespace: devops
 spec:
   selector:
     matchLabels:
-        app: nginx
+      app: nginx
+      tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
         app: nginx
+        tier: frontend
     spec:
       containers:
+      - name: nginx
         image: nginx
-        imagePullPolicy: Always
-        name: nginx
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
         ports:
         - containerPort: 80
-          name: nginx
-          protocol: TCP
