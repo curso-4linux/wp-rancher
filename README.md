@@ -7,7 +7,7 @@ metadata:
   name: simple
   namespace: fleet-default
 spec:
-  repo: https://github.com//roberto-farias/wp-rancher
+  repo: https://github.com/roberto-farias/wp-rancher
   paths:
   - deploy
 ```
