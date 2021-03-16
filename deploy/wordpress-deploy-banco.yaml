@@ -30,7 +30,7 @@ spec:
             memory: 512Mi
         ports:
         - containerPort: 3306
-                volumeMounts:
+        volumeMounts:
         - mountPath: /var/lib/mysql
           name: storage-mysql      
       volumes:
