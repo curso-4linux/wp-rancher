@@ -11,8 +11,6 @@ spec:
     matchLabels:
       app: wordpress
       tier: frontend
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -34,9 +32,9 @@ spec:
         - containerPort: 80
           name: wordpress
         volumeMounts:
-        - name: storage-wp
+        - name: storage-site
           mountPath: /var/www/html
       volumes:
-      - name: storage-wp
+      - name: storage-site
         persistentVolumeClaim:
-          claimName: storage-wp
+          claimName: storage-site
