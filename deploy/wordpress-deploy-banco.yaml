@@ -16,12 +16,6 @@ spec:
         tier: backend
     spec:
       containers:
-      - env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: mysql_password
-              name: mysql-secrets
       - name: wordpress-banco
         image: mysql:5.6
         resources:
@@ -30,9 +24,18 @@ spec:
             memory: 512Mi
         ports:
         - containerPort: 3306
+        
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mysql_password
+              name: mysql-secrets
+              
         volumeMounts:
         - mountPath: /var/lib/mysql
-          name: storage-mysql      
+          name: storage-mysql
+          
       volumes:
       - name: storage-mysql
         persistentVolumeClaim:
