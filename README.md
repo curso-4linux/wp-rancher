@@ -1,7 +1,4 @@
-# Simple Example
-
-This example will deploy the [Kubernetes sample guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) application.
-The app will be deployed into the `default` namespace.
+# Wordpress Rancher Example
 
 ```yaml
 kind: GitRepo
@@ -10,7 +7,7 @@ metadata:
   name: simple
   namespace: fleet-default
 spec:
-  repo: https://github.com/rancher/fleet-examples
+  repo: https://github.com//roberto-farias/wp-rancher
   paths:
-  - simple
+  - deploy
 ```
