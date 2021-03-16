@@ -1,59 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
-    field.cattle.io/targetWorkloadIds: '[''devops/wordpress-site'']'
-    management.cattle.io/ui-managed: "true"
-  creationTimestamp: "2021-03-15T23:46:37Z"
-  managedFields:
-  - apiVersion: v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:field.cattle.io/targetWorkloadIds: {}
-          f:management.cattle.io/ui-managed: {}
-        f:ownerReferences:
-          .: {}
-          k:{"uid":"5402cdc2-9acc-49b3-984d-e77f3b69b6b9"}:
-            .: {}
-            f:apiVersion: {}
-            f:controller: {}
-            f:kind: {}
-            f:name: {}
-            f:uid: {}
-      f:spec:
-        f:ports:
-          .: {}
-          k:{"port":80,"protocol":"TCP"}:
-            .: {}
-            f:name: {}
-            f:port: {}
-            f:protocol: {}
-            f:targetPort: {}
-        f:selector:
-          .: {}
-          f:workload.user.cattle.io/workloadselector: {}
-        f:sessionAffinity: {}
-        f:type: {}
-    manager: agent
-    operation: Update
-    time: "2021-03-15T23:46:37Z"
   name: wordpress-site
   namespace: devops
-  ownerReferences:
-  - apiVersion: apps/v1
-    controller: true
-    kind: Deployment
-    name: wordpress-site
-    uid: 5402cdc2-9acc-49b3-984d-e77f3b69b6b9
-  resourceVersion: "16640"
-  selfLink: /api/v1/namespaces/devops/services/wordpress-site
-  uid: d31a604a-e14d-4d6a-be18-2ea8d8301f81
 spec:
-  clusterIP: 10.76.8.12
   ports:
   - name: wordpress-lb
     port: 80
@@ -61,7 +11,6 @@ spec:
     targetPort: 80
   selector:
     workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
-  sessionAffinity: None
   type: ClusterIP
 status:
   loadBalancer: {}
