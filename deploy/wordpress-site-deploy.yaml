@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress-site
+  namespace: devops
 spec:
   selector:
     matchLabels:
@@ -13,7 +14,6 @@ spec:
         workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
     spec:
       containers:
-      - name: wordpress-site
       - env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-banco
