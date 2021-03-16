@@ -3,16 +3,17 @@ kind: Deployment
 metadata:
   name: wordpress-site
 spec:
-  replicas: 1
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
+  replicas: 1
   template:
     metadata:
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
     spec:
       containers:
+      - name: wordpress-site
       - env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-banco
