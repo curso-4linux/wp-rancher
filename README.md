@@ -1,1 +1,1 @@
-# Wordpress Rancher Example
+# Nginx Rancher Example
