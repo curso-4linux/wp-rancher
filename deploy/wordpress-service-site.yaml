@@ -18,7 +18,3 @@ spec:
     app: wordpress
     tier: frontend
   type: LoadBalancer
-status:
-  loadBalancer:
-    ingress:
-    - ip: 35.222.8.133
