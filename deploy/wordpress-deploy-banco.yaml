@@ -5,6 +5,7 @@ metadata:
   name: wordpress-deploy-banco
   labels:
     app: wordpress
+    tier: backend
 spec:
   selector:
     matchLabels:
@@ -26,7 +27,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mysql_password
-              key:mysql-secrets
+              key: mysql-secrets
         ports:
         - containerPort: 3306
           name: mysql
