@@ -1,143 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: "2021-03-15T23:42:40Z"
-  generation: 1
-  managedFields:
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:progressDeadlineSeconds: {}
-        f:replicas: {}
-        f:revisionHistoryLimit: {}
-        f:selector:
-          f:matchLabels:
-            .: {}
-            f:workload.user.cattle.io/workloadselector: {}
-        f:strategy:
-          f:rollingUpdate:
-            .: {}
-            f:maxSurge: {}
-            f:maxUnavailable: {}
-          f:type: {}
-        f:template:
-          f:metadata:
-            f:labels:
-              .: {}
-              f:workload.user.cattle.io/workloadselector: {}
-          f:spec:
-            f:affinity: {}
-            f:containers:
-              k:{"name":"wordpress-banco"}:
-                .: {}
-                f:env:
-                  .: {}
-                  k:{"name":"MYSQL_ROOT_PASSWORD"}:
-                    .: {}
-                    f:name: {}
-                    f:valueFrom:
-                      .: {}
-                      f:secretKeyRef:
-                        .: {}
-                        f:key: {}
-                        f:name: {}
-                        f:optional: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:ports:
-                  .: {}
-                  k:{"containerPort":3306,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                f:resources: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/var/lib/mysql"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-            f:dnsPolicy: {}
-            f:restartPolicy: {}
-            f:schedulerName: {}
-            f:securityContext: {}
-            f:terminationGracePeriodSeconds: {}
-            f:volumes:
-              .: {}
-              k:{"name":"storage-mysql"}:
-                .: {}
-                f:name: {}
-                f:persistentVolumeClaim:
-                  .: {}
-                  f:claimName: {}
-    manager: agent
-    operation: Update
-    time: "2021-03-15T23:42:40Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:deployment.kubernetes.io/revision: {}
-      f:status:
-        f:availableReplicas: {}
-        f:conditions:
-          .: {}
-          k:{"type":"Available"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-          k:{"type":"Progressing"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-        f:observedGeneration: {}
-        f:readyReplicas: {}
-        f:replicas: {}
-        f:updatedReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2021-03-15T23:43:10Z"
   name: wordpress-banco
-  namespace: devops
-  resourceVersion: "15182"
-  selfLink: /apis/apps/v1/namespaces/devops/deployments/wordpress-banco
-  uid: 6ecdae4d-4dc7-4a7b-bffe-3f962adf721a
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-banco
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+  replicas: 1
   template:
     metadata:
-      creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-banco
     spec:
-      affinity: {}
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
@@ -145,45 +19,16 @@ spec:
             secretKeyRef:
               key: mysql_password
               name: mysql-secrets
-              optional: false
         image: mysql:5.6
         imagePullPolicy: Always
-        name: wordpress-banco
         ports:
         - containerPort: 3306
           name: mysql
           protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: storage-mysql
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
       volumes:
       - name: storage-mysql
         persistentVolumeClaim:
           claimName: storage-mysql
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2021-03-15T23:43:10Z"
-    lastUpdateTime: "2021-03-15T23:43:10Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2021-03-15T23:42:40Z"
-    lastUpdateTime: "2021-03-15T23:43:10Z"
-    message: ReplicaSet "wordpress-banco-dbc8569c6" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 1
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
