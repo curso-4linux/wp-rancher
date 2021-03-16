@@ -1,4 +1,4 @@
-# Wordpress Rancher Example
+# Wordpress GitOps Rancher
 
 ```yaml
 kind: GitRepo
