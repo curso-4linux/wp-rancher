@@ -5,38 +5,23 @@ kind: Deployment
     meta.helm.sh/release-name: wp-rancher
     meta.helm.sh/release-namespace: devops
 metadata:
-  name: wordpress-site
+  name: nginx
   namespace: devops
 spec:
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
+        app: nginx
   replicas: 1
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: apps.deployment-devops-wordpress-site
+        app: nginx
     spec:
       containers:
-      - env:
-        - name: WORDPRESS_DB_HOST
-          value: wordpress-banco
-        - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: mysql_password
-              name: mysql-secrets
-        image: wordpress:4.8-apache
+        image: nginx
         imagePullPolicy: Always
-        name: wordpress-site
+        name: nginx
         ports:
         - containerPort: 80
-          name: wordpress-lb
-          protocol: TCP  
-        volumeMounts:
-        - mountPath: /var/www/html
-          name: storage-wp
-      volumes:
-      - name: storage-wp
-        persistentVolumeClaim:
-          claimName: storage-wp
+          name: nginx
+          protocol: TCP
